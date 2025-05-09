@@ -1,0 +1,11 @@
+<div class="date-picker" style="display: flex; align-items: center; gap: 8px;">
+	<span>{{ label }}</span>
+	<span style="flex:1"></span>
+	<span *ngIf="value">{{ value | date : 'dd.MM.yyyy' }}</span>
+	<button mat-icon-button (click)="openDialog()" type="button" aria-label="Открыть календарь">
+		<mat-icon>event</mat-icon>
+	</button>
+	<button mat-icon-button type="button" *ngIf="value" (click)="clearDate()" aria-label="Очистить дату">
+		<mat-icon>close</mat-icon>
+	</button>
+</div>

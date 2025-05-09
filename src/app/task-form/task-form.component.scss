@@ -1,0 +1,76 @@
+.task-form {
+  min-width: 500px;
+
+  .full-width {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  [mat-dialog-actions] {
+    padding: 16px 0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  [mat-dialog-content] {
+    padding: 0 24px;
+  }
+}
+
+h2[mat-dialog-title] {
+  margin: 0;
+  padding: 16px 24px;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+// Стили для datepicker
+::ng-deep .mat-datepicker-popup {
+  background-color: #f5f7f6 !important;
+  opacity: 1 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+::ng-deep .mat-calendar {
+  background-color: #f5f7f6;
+
+  .mat-calendar-body-selected {
+    background-color: #7ba89a;
+    color: white;
+  }
+
+  .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover
+    > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected) {
+    background-color: #d0e0db;
+  }
+
+  .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+    border-color: #7ba89a;
+  }
+
+  .mat-calendar-body-today.mat-calendar-body-selected {
+    box-shadow: inset 0 0 0 1px white;
+  }
+}
+
+::ng-deep .mat-datepicker-content {
+  background-color: #f5f7f6;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+
+  .mat-calendar-controls {
+    margin: 8px;
+  }
+
+  .mat-datepicker-actions {
+    padding: 8px;
+    background-color: #f5f7f6;
+  }
+}

@@ -17,3 +17,5 @@ export enum TaskPriority {
   MEDIUM = 'MEDIUM',
   HIGH = 'HIGH',
 }
+
+export type TaskForm = Omit<Task, 'id'>;

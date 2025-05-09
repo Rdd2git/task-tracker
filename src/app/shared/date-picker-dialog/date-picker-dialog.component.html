@@ -1,0 +1,12 @@
+<mat-card class="inline-calendar-card">
+	<mat-calendar [selected]="data.value" [startAt]="data.value || today"
+		(selectedChange)="select($event)"></mat-calendar>
+	<div class="dialog-actions">
+		<button mat-button color="warn" (click)="dialogRef.close()">
+			Отмена
+		</button>
+		<button mat-button color="primary" (click)="dialogRef.close()">
+			OK
+		</button>
+	</div>
+</mat-card>

@@ -1,0 +1,74 @@
+<h2 mat-dialog-title>{{ isEditMode ? 'Редактировать задачу' : 'Создать новую задачу' }}</h2>
+
+<form [formGroup]="taskForm" (ngSubmit)="saveTask()" class="task-form">
+	<div mat-dialog-content>
+		<!-- Заголовок задачи -->
+		<mat-form-field appearance="outline" class="full-width">
+			<mat-label>Заголовок</mat-label>
+			<input matInput formControlName="title" placeholder="Введите заголовок задачи" required />
+			<mat-error *ngIf="taskForm.get('title')?.hasError('required')">
+				Заголовок обязателен
+			</mat-error>
+			<mat-error *ngIf="taskForm.get('title')?.hasError('minlength')">
+				Заголовок должен содержать не менее 3 символов
+			</mat-error>
+		</mat-form-field>
+
+		<!-- Описание задачи -->
+		<mat-form-field appearance="outline" class="full-width">
+			<mat-label>Описание</mat-label>
+			<textarea matInput formControlName="description" placeholder="Введите описание задачи" rows="3"
+				required></textarea>
+			<mat-error *ngIf="taskForm.get('description')?.hasError('required')">
+				Описание обязательно
+			</mat-error>
+		</mat-form-field>
+
+		<!-- Статус задачи -->
+		<mat-form-field appearance="outline" class="full-width">
+			<mat-label>Статус</mat-label>
+			<mat-select formControlName="status" required>
+				<mat-option *ngFor="let status of statuses" [value]="status">
+					{{ status }}
+				</mat-option>
+			</mat-select>
+			<mat-error *ngIf="taskForm.get('status')?.hasError('required')">
+				Статус обязателен
+			</mat-error>
+		</mat-form-field>
+
+		<!-- Приоритет задачи -->
+		<mat-form-field appearance="outline" class="full-width">
+			<mat-label>Приоритет</mat-label>
+			<mat-select formControlName="priority" required>
+				<mat-option *ngFor="let priority of priorities" [value]="priority">
+					{{ priority }}
+				</mat-option>
+			</mat-select>
+			<mat-error *ngIf="taskForm.get('priority')?.hasError('required')">
+				Приоритет обязателен
+			</mat-error>
+		</mat-form-field>
+
+		<!-- Исполнитель задачи -->
+		<mat-form-field appearance="outline" class="full-width">
+			<mat-label>Исполнитель</mat-label>
+			<input matInput formControlName="assignee" placeholder="Введите имя исполнителя" required />
+			<mat-error *ngIf="taskForm.get('assignee')?.hasError('required')">
+				Исполнитель обязателен
+			</mat-error>
+		</mat-form-field>
+
+		<!-- Дедлайн задачи -->
+		<app-date-picker [label]="'Дедлайн'" [value]="taskForm.get('deadline')?.value"
+			(valueChange)="taskForm.get('deadline')?.setValue($event)"></app-date-picker>
+	</div>
+
+	<div mat-dialog-actions align="end">
+		<button mat-button type="button" (click)="cancel()">Отмена</button>
+		<button mat-raised-button color="primary" type="submit" [disabled]="taskForm.invalid">
+			<mat-icon>save</mat-icon>
+			<span>{{ isEditMode ? 'Обновить' : 'Сохранить' }}</span>
+		</button>
+	</div>
+</form>
