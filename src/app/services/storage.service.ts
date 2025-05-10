@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Task } from '../models/task.model';
 
+// Можно удалить файл, если он больше не используется
+
 @Injectable({
   providedIn: 'root',
 })

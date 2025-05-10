@@ -1,29 +1,38 @@
 import { ActionReducer } from '@ngrx/store';
-import { StorageService } from './storage.service';
 import { EntityState } from '@ngrx/entity';
 import { Task } from '../models/task.model';
+
+const STORAGE_KEY = 'tasks-entity-state';
 
 export interface AppState {
   tasks: EntityState<Task>;
 }
 
-export function localStorageMetaReducer(
-  reducer: ActionReducer<any>
-): ActionReducer<any> {
-  const storageService = new StorageService();
-
+export function storageMetaReducer<T>(
+  reducer: ActionReducer<T>
+): ActionReducer<T> {
   return (state, action) => {
-    const nextState = reducer(state, action);
-
-    if (action.type !== '@ngrx/store/init') {
-      if (nextState?.tasks) {
-        const tasks = Object.values(nextState.tasks.entities).filter(
-          (task): task is Task => task !== undefined
-        );
-        storageService.saveTasks(tasks);
+    // При инициализации приложения пробуем загрузить из localStorage
+    if (state === undefined) {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        try {
+          return JSON.parse(stored);
+        } catch {
+          // ignore parse errors
+        }
       }
     }
+    const nextState = reducer(state, action);
 
+    // Сохраняем только tasks в localStorage
+    if (nextState && (nextState as any).tasks) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(nextState));
+      } catch {
+        // ignore storage errors
+      }
+    }
     return nextState;
   };
 }

@@ -1,4 +1,4 @@
-import { createActionGroup, emptyProps, props } from '@ngrx/store';
+import { createActionGroup, props } from '@ngrx/store';
 import { Task, TaskForm } from '../models/task.model';
 
 export const TaskActions = createActionGroup({
